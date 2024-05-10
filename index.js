@@ -1,13 +1,14 @@
-function maxSlidingWindow(nums, k) {
-  const result = [];
-  const queue = [];
-  for (let i = 0; i < nums.length; i++) {
-    while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
-      queue.pop();
-    }
-    queue.push(i);
-    if (queue[0] === i - k) queue.shift();
-    if (i >= k - 1) result.push(nums[queue[0]]);
+function findRedundantConnection(edges) {
+  const parent = new Array(edges.length + 1).fill(-1);
+  for (const edge of edges) {
+    const u = find(parent, edge[0]);
+    const v = find(parent, edge[1]);
+    if (u === v) return edge;
+    parent[u] = v;
   }
-  return result;
+  return [];
+}
+function find(parent, i) {
+  if (parent[i] === -1) return i;
+  return find(parent, parent[i]);
 }
