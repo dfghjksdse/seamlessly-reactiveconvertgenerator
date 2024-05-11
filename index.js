@@ -1,14 +1,10 @@
-function findRedundantConnection(edges) {
-  const parent = new Array(edges.length + 1).fill(-1);
-  for (const edge of edges) {
-    const u = find(parent, edge[0]);
-    const v = find(parent, edge[1]);
-    if (u === v) return edge;
-    parent[u] = v;
+function generateParenthesis(n) {
+  const result = [];
+  backtrack("", 0, 0);
+  return result;
+  function backtrack(current, open, close) {
+    if (current.length === 2 * n) result.push(current);
+    if (open < n) backtrack(current + "(", open + 1, close);
+    if (close < open) backtrack(current + ")", open, close + 1);
   }
-  return [];
-}
-function find(parent, i) {
-  if (parent[i] === -1) return i;
-  return find(parent, parent[i]);
 }
